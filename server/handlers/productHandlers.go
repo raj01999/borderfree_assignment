@@ -38,7 +38,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "Please provide the productname and productdetail",
+			"message": "Please Provide The Productname And Productdetail",
 		})
 		return
 	}
@@ -61,7 +61,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":  "success",
-		"message": "product added successfully",
+		"message": "Product Added Successfully",
 	})
 }
 
@@ -124,7 +124,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "product not found",
+			"message": "Product Not Found",
 		})
 		return
 	}
@@ -134,7 +134,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "user in not the ownler",
+			"message": "User Is Not The Ownler",
 		})
 		return
 	}
@@ -157,7 +157,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":  "success",
-		"message": "product deleted successfully",
+		"message": "Product Deleted Successfully",
 	})
 
 }
@@ -192,7 +192,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "product not found",
+			"message": "Product Not Found",
 		})
 		return
 	}
@@ -202,7 +202,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "user in not the ownler",
+			"message": "User Is Not The Ownler",
 		})
 		return
 	}
@@ -228,7 +228,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":  "success",
-		"message": "product updated successfully",
+		"message": "Product Updated Successfully",
 	})
 
 }

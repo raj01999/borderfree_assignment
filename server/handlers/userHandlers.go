@@ -39,7 +39,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "Please provide the username and password",
+			"message": "Please Provide The Username And Password",
 		})
 		return
 	}
@@ -49,11 +49,11 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	result.Decode(&oldUser)
 
 	if oldUser.Username == newUser.Username {
-		w.WriteHeader(http.StatusForbidden)
+		w.WriteHeader(http.StatusConflict)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "user alredy exist",
+			"message": "User Alredy Exist",
 		})
 		return
 	}
@@ -76,7 +76,7 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":  "success",
-		"message": "user register successfull",
+		"message": "User Registerd Successfull",
 	})
 
 }
@@ -99,7 +99,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "Please provide the username and password",
+			"message": "Please Provide The Username And Password",
 		})
 		return
 	}
@@ -113,7 +113,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "user not registered",
+			"message": "User Not Registered",
 		})
 		return
 	}
@@ -123,7 +123,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "password is wrong",
+			"message": "Password Is Wrong",
 		})
 		return
 	}
@@ -158,7 +158,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":   "success",
-		"message":  "successfully login",
+		"message":  "Successfully Login",
 		"username": oldUser.Username,
 		"token":    tokenString,
 	})

@@ -24,7 +24,7 @@ func AuthenticateToken(next http.Handler) http.Handler {
 			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(map[string]string{
 				"status":  "failed",
-				"message": "unauthorized bad reques",
+				"message": "Unauthorized Bad Reques",
 			})
 			return
 		}
@@ -50,7 +50,7 @@ func AuthenticateToken(next http.Handler) http.Handler {
 			w.Header().Set("Content-Type", "application/json")
 			json.NewEncoder(w).Encode(map[string]string{
 				"status":  "failed",
-				"message": "unauthorized",
+				"message": "Unauthorized",
 			})
 			return
 		}

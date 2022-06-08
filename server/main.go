@@ -3,22 +3,31 @@ package main
 import (
 	"log"
 	"net/http"
-	"server/handlers"
+	h "server/handlers"
+
+	"github.com/gorilla/handlers"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
+	r := mux.NewRouter()
 
-	http.HandleFunc("/signin", handlers.Signin)
+	r.HandleFunc("/signin", h.Signin).Methods("POST")
 
-	http.HandleFunc("/signup", handlers.Signup)
+	r.HandleFunc("/signup", h.Signup).Methods("POST")
 
-	http.Handle("/addproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.AddProduct)))
+	r.Handle("/addproduct", h.AuthenticateToken(http.HandlerFunc(h.AddProduct))).Methods("POST")
 
-	http.Handle("/deleteproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.DeleteProduct)))
+	r.Handle("/deleteproduct", h.AuthenticateToken(http.HandlerFunc(h.DeleteProduct))).Methods("DELETE")
 
-	http.Handle("/getproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.GetProduct)))
+	r.Handle("/getproduct", h.AuthenticateToken(http.HandlerFunc(h.GetProduct))).Methods("GET")
 
-	http.Handle("/updateProduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.UpdateProduct)))
+	r.Handle("/updateProduct", h.AuthenticateToken(http.HandlerFunc(h.UpdateProduct))).Methods("PUT")
 
-	log.Fatal(http.ListenAndServe(":5000", nil))
+	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+
+	log.Fatal(http.ListenAndServe(":5000", handlers.CORS(headers, methods, origins)(r)))
 }
