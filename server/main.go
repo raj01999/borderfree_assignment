@@ -7,9 +7,16 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/login", handlers.Login)
-	http.Handle("/home", handlers.AuthenticateToken(http.HandlerFunc(handlers.Home)))
-	http.HandleFunc("/refresh", handlers.Refresh)
+
+	http.HandleFunc("/signin", handlers.Signin)
+
+	http.HandleFunc("/signup", handlers.Signup)
+
+	http.Handle("/addproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.AddProduct)))
+
+	http.Handle("/deleteproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.DeleteProduct)))
+
+	http.Handle("/getproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.GetProduct)))
 
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }

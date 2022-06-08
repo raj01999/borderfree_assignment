@@ -4,44 +4,111 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	crud "server/CRUD_operation"
+	"server/model"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var jwtKey = []byte("secret_key")
 
-var users = map[string]string{
-	"user1": "password1",
-	"user2": "password2",
-}
-
-type Credentials struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
 type Claims struct {
-	Username string `json:"username"`
+	Username string             `json:"username"`
+	Id       primitive.ObjectID `json:"_id"`
 	jwt.RegisteredClaims
 }
 
-func Login(w http.ResponseWriter, r *http.Request) {
-	var credential Credentials
-	err := json.NewDecoder(r.Body).Decode(&credential)
+func Signup(w http.ResponseWriter, r *http.Request) {
+	var newUser model.UserField
+	err := json.NewDecoder(r.Body).Decode(&newUser)
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
 			"status":  "failed",
-			"message": "provide the request body in correct format",
+			"message": err.Error(),
 		})
 		return
 	}
 
-	expectedPassword, ok := users[credential.Username]
+	if newUser.Username == "" || newUser.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": "Please provide the username and password",
+		})
+		return
+	}
 
-	if !ok {
+	result := crud.FindUser(newUser.Username)
+	var oldUser model.UserField
+	result.Decode(&oldUser)
+
+	if oldUser.Username == newUser.Username {
+		w.WriteHeader(http.StatusForbidden)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": "user alredy exist",
+		})
+		return
+	}
+
+	inserted, err := crud.InsertUser(newUser)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	fmt.Println(inserted)
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"status":  "success",
+		"message": "user register successfull",
+	})
+
+}
+
+func Signin(w http.ResponseWriter, r *http.Request) {
+	var newUser model.UserField
+	err := json.NewDecoder(r.Body).Decode(&newUser)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	if newUser.Username == "" || newUser.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": "Please provide the username and password",
+		})
+		return
+	}
+
+	result := crud.FindUser(newUser.Username)
+	var oldUser model.UserField
+	result.Decode(&oldUser)
+
+	if newUser.Username != oldUser.Username {
 		w.WriteHeader(http.StatusNotFound)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
@@ -51,7 +118,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if expectedPassword != credential.Password {
+	if newUser.Password != oldUser.Password {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
@@ -62,10 +129,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	issueTime := time.Now()
-	expirationTime := time.Now().Add(time.Minute * 5)
+	expirationTime := time.Now().Add(time.Minute * 60)
 
 	claim := &Claims{
-		Username: credential.Username,
+		Username: oldUser.Username,
+		Id:       oldUser.Id,
 		RegisteredClaims: jwt.RegisteredClaims{
 			IssuedAt:  jwt.NewNumericDate(issueTime),
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
@@ -89,30 +157,10 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{
-		"status":  "success",
-		"message": "successfully login",
-		"token":   tokenString,
+		"status":   "success",
+		"message":  "successfully login",
+		"username": oldUser.Username,
+		"token":    tokenString,
 	})
-
-}
-
-func Home(w http.ResponseWriter, r *http.Request) {
-	claim := r.Context().Value(userId)
-
-	var user map[string]interface{}
-	inrec, _ := json.Marshal(claim)
-	json.Unmarshal(inrec, &user)
-
-	fmt.Println(user["username"])
-
-	w.WriteHeader(http.StatusUnauthorized)
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
-		"status":  "sucess",
-		"message": "jwt sucess",
-	})
-}
-
-func Refresh(w http.ResponseWriter, r *http.Request) {
 
 }
