@@ -18,5 +18,7 @@ func main() {
 
 	http.Handle("/getproduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.GetProduct)))
 
+	http.Handle("/updateProduct", handlers.AuthenticateToken(http.HandlerFunc(handlers.UpdateProduct)))
+
 	log.Fatal(http.ListenAndServe(":5000", nil))
 }

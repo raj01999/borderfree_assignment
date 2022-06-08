@@ -31,7 +31,7 @@ func DeleteProduct(id primitive.ObjectID) (*mongo.DeleteResult, error) {
 }
 
 func UpdateProduct(id primitive.ObjectID, data model.ProductField) (*mongo.UpdateResult, error) {
-	updated, err := connection.Product.UpdateOne(context.Background(), bson.M{"_id": id}, data)
+	updated, err := connection.Product.UpdateOne(context.Background(), bson.M{"_id": id}, bson.M{"$set": data})
 
 	return updated, err
 }
