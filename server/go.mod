@@ -1,10 +1,10 @@
 module server
 
+// +heroku goVersion go1.18
 go 1.18
 
-require github.com/golang-jwt/jwt/v4 v4.4.1 // indirect
-
 require (
+	github.com/golang-jwt/jwt/v4 v4.4.1 // indirect
 	github.com/felixge/httpsnoop v1.0.1 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
