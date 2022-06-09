@@ -1,0 +1,27 @@
+.confirm {
+  position: absolute;
+  width: 22rem;
+  height: 7rem;
+  border-radius: 10px;
+  left: calc(50% - 11rem);
+  top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: skyblue;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  z-index: 5;
+}
+
+.confirm > div > button {
+  width: 8rem;
+  height: 2rem;
+  margin: 0 10px;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}

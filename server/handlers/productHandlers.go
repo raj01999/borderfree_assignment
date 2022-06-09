@@ -33,7 +33,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 
 	newProduct.UserId = user.Id
 
-	if newProduct.ProductName == "" || newProduct.ProductDetail == "" {
+	if newProduct.ProductName == "" || newProduct.ProductDetail == "" || newProduct.ProductPrice == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{

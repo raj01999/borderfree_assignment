@@ -1,0 +1,79 @@
+.tableContainer {
+  width: 94%;
+  max-width: 94%;
+  height: calc(100vh - 6rem - 2px);
+  max-height: calc(100vh - 6rem - 2px);
+  margin: auto;
+  position: relative;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: block;
+  overflow: auto;
+  border-radius: 10px;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 3px;
+  word-break: break-word;
+  min-width: 5rem;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+th {
+  position: sticky;
+  top: -3px;
+  background-color: #04aa6d;
+  color: white;
+  height: 2.5rem;
+}
+
+td > button {
+  width: 100%;
+  height: 2rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  opacity: 0.7;
+}
+
+.productId {
+  width: 10%;
+}
+
+.productUpdate {
+  width: 10%;
+}
+
+.productDelete {
+  width: 10%;
+}
+
+.productName {
+  width: 30%;
+}
+
+.productDescription {
+  width: 40%;
+}
+.productPrice {
+  width: 30%;
+}

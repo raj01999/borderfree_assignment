@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import Mainpage from "./pages/Mainpage";
+import Notfound from "./components/Notfound";
+import { useStateValue } from "./context/StateProvider";
 
 function App() {
+  // eslint-disable-next-line
+  const [state, dispatch] = useStateValue();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AnimatePresence exitBeforeEnter>
+      <Routes>
+        <Route
+          path="/"
+          element={state.user.token !== "NA" ? <Mainpage /> : <Signin />}
+        />
+
+        <Route path="/signup" element={<Signup />} />
+
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
