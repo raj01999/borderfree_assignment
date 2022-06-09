@@ -6,5 +6,6 @@ type ProductField struct {
 	Id            primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
 	ProductName   string             `json:"productname,omitempty" bson:"productname,omitempty"`
 	ProductDetail string             `json:"productdetail,omitempty" bson:"productdetail,omitempty"`
+	ProductPrice  string             `json:"productprice,omitempty" bson:"productprice,omitempty"`
 	UserId        primitive.ObjectID `json:"userId,omitempty" bson:"userId,omitempty"`
 }

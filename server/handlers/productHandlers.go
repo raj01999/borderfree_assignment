@@ -12,7 +12,7 @@ import (
 )
 
 func AddProduct(w http.ResponseWriter, r *http.Request) {
-	props := r.Context().Value(userId)
+	props := r.Context().Value(key)
 
 	var user Claims
 	jsonRead, _ := json.Marshal(props)
@@ -66,7 +66,7 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
-	props := r.Context().Value(userId)
+	props := r.Context().Value(key)
 
 	var user Claims
 	jsonRead, _ := json.Marshal(props)
@@ -87,7 +87,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	products := []model.ProductField{}
 	data.All(context.TODO(), &products)
 
-	w.WriteHeader(http.StatusInternalServerError)
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string][]model.ProductField{
 		"data": products,
@@ -95,7 +95,7 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteProduct(w http.ResponseWriter, r *http.Request) {
-	props := r.Context().Value(userId)
+	props := r.Context().Value(key)
 
 	var user Claims
 	jsonRead, _ := json.Marshal(props)
@@ -163,7 +163,7 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	props := r.Context().Value(userId)
+	props := r.Context().Value(key)
 
 	var user Claims
 	jsonRead, _ := json.Marshal(props)

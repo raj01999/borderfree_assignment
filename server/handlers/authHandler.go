@@ -13,7 +13,7 @@ type UserKey struct {
 	User string
 }
 
-var userId UserKey = UserKey{"userId"}
+var key UserKey = UserKey{"userId"}
 
 func AuthenticateToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -55,7 +55,7 @@ func AuthenticateToken(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), userId, claim)
+		ctx := context.WithValue(r.Context(), key, claim)
 		next.ServeHTTP(w, r.WithContext(ctx))
 
 	})
