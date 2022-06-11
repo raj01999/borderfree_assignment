@@ -1,12 +1,13 @@
 import React from "react";
 import { useStateValue } from "../context/StateProvider";
 import "./confirm.css";
-import { actionType } from "../context/reducer";
 
 const Confirm = ({ Id, setId, fetchData }) => {
+  // eslint-disable-next-line
   const [state, dispatch] = useStateValue();
 
   const handleClick = async () => {
+    setId(null);
     const jsonResponse = await fetch(
       process.env.REACT_APP_API + "/deleteproduct?id=" + Id,
       {
@@ -22,9 +23,9 @@ const Confirm = ({ Id, setId, fetchData }) => {
 
     if (jsonResponse.status === 200) {
       fetchData();
-      setId(null);
     } else {
-      dispatch({ type: actionType.REMOVE_USER });
+      fetchData();
+      window.alert(response.message);
     }
 
     console.log(response);
@@ -32,7 +33,7 @@ const Confirm = ({ Id, setId, fetchData }) => {
 
   return (
     <div className="confirm">
-      <p>Sure you want to delete this Product?</p>
+      <p>You want to delete Product: {"s" + Id.slice(-6)} ?</p>
       <div>
         <button
           style={{ backgroundColor: "green" }}

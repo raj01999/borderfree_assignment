@@ -15,16 +15,23 @@ const SingleProduct = ({
   const updateClick = (e) => {
     if (state.pop) return;
 
+    setId(null);
+
     setProd({
       id: _id,
       productname: productname,
       productdetail: productdetail,
       productprice: productprice,
     });
-    dispatch({ type: actionType.ADD_POP, payload: { msg: "Update Product" } });
+    dispatch({
+      type: actionType.ADD_POP,
+      payload: { msg: `Product: s${_id.slice(-6)}` },
+    });
   };
 
   const deleteClick = (e) => {
+    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
+
     setId(_id);
 
     setProd({
@@ -32,13 +39,11 @@ const SingleProduct = ({
       productdetail: "",
       productprice: "",
     });
-
-    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
   };
 
   return (
     <tr>
-      <td className="productId">{"s" + _id.slice(-5)}</td>
+      <td className="productId">{"s" + _id.slice(-6)}</td>
       <td className="productName">{productname}</td>
       <td className="productDescription">{productdetail}</td>
       <td className="productPrice">{productprice}</td>

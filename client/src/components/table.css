@@ -42,6 +42,7 @@ th {
   background-color: #04aa6d;
   color: white;
   height: 2.5rem;
+  z-index: 1;
 }
 
 td > button {

@@ -7,6 +7,7 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
   const [state, dispatch] = useStateValue();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
 
     if (prod.id) {
       const jsonResponse = await fetch(
@@ -30,7 +31,8 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
       if (jsonResponse.status === 200) {
         fetchData();
       } else {
-        dispatch({ type: actionType.REMOVE_USER });
+        fetchData();
+        window.alert(response.message);
       }
 
       setProd({
@@ -38,8 +40,6 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
         productdetail: "",
         productprice: "",
       });
-
-      dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
 
       console.log(response);
 
@@ -67,7 +67,8 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
     if (jsonResponse.status === 200) {
       fetchData();
     } else {
-      dispatch({ type: actionType.REMOVE_USER });
+      fetchData();
+      window.alert(response.message);
     }
 
     setProd({
@@ -76,19 +77,17 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
       productprice: "",
     });
 
-    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
-
     console.log(response);
   };
 
   const handleClick = (e) => {
+    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
+
     setProd({
       productname: "",
       productdetail: "",
       productprice: "",
     });
-
-    dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
   };
 
   return (
