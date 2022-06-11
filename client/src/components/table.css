@@ -78,3 +78,14 @@ td > button {
 .productPrice {
   width: 30%;
 }
+
+/* mobile responsive  */
+
+@media screen and (max-width: 850px) {
+  .tableContainer {
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - 8.5rem - 2px);
+    max-height: calc(100vh - 8.5rem - 2px);
+  }
+}

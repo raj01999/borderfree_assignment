@@ -19,10 +19,22 @@
   cursor: pointer;
   border-radius: 5px;
   margin-right: 3%;
-  background-color: skyblue;
+  background-color: rgb(32, 205, 220);
   color: ghostwhite;
 }
 
 .controller > p {
   margin-left: 10px;
+}
+
+/* mobile responsive  */
+
+@media screen and (max-width: 850px) {
+  .controller {
+    height: 4.5rem;
+  }
+
+  .controller > button {
+    height: 3.5rem;
+  }
 }

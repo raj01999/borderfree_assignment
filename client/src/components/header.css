@@ -30,6 +30,7 @@ header > ul {
   background-color: rgb(32, 205, 220);
   cursor: pointer;
   color: white;
+  opacity: 0.85;
 }
 
 .userField {
@@ -45,4 +46,16 @@ header > ul {
   justify-content: center;
   padding-left: 10px;
   opacity: 0.6;
+}
+
+/* mobile responsive  */
+
+@media screen and (max-width: 850px) {
+  header > ul {
+    display: none;
+  }
+  .righSide {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
