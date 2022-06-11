@@ -9,6 +9,12 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
     e.preventDefault();
     dispatch({ type: actionType.ADD_POP, payload: { msg: null } });
 
+    setProd({
+      productname: "",
+      productdetail: "",
+      productprice: "",
+    });
+
     if (prod.id) {
       const jsonResponse = await fetch(
         process.env.REACT_APP_API + "/updateProduct?id=" + prod.id,
@@ -34,12 +40,6 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
         fetchData();
         window.alert(response.message);
       }
-
-      setProd({
-        productname: "",
-        productdetail: "",
-        productprice: "",
-      });
 
       console.log(response);
 
@@ -70,12 +70,6 @@ const Form = ({ pop, prod, setProd, fetchData }) => {
       fetchData();
       window.alert(response.message);
     }
-
-    setProd({
-      productname: "",
-      productdetail: "",
-      productprice: "",
-    });
 
     console.log(response);
   };

@@ -18,7 +18,10 @@ function App() {
           element={state.user.token !== "NA" ? <Mainpage /> : <Signin />}
         />
 
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/signup"
+          element={state.user.token !== "NA" ? <Mainpage /> : <Signup />}
+        />
 
         <Route path="*" element={<Notfound />} />
       </Routes>

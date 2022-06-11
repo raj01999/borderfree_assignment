@@ -44,4 +44,6 @@ func main() {
 	origins := handlers.AllowedOrigins([]string{"*"})
 
 	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(headers, methods, origins)(r)))
+
+	// log.Fatal(http.ListenAndServe(":"+"5000", handlers.CORS(headers, methods, origins)(r)))
 }

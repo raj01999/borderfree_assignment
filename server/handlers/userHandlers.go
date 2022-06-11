@@ -6,6 +6,7 @@ import (
 	"net/http"
 	crud "server/CRUD_operation"
 	"server/model"
+	hash "server/utils"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -57,6 +58,20 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
+
+	hashPassword, err := hash.HashPassword(newUser.Password)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	newUser.Password = hashPassword
 
 	inserted, err := crud.InsertUser(newUser)
 
@@ -118,7 +133,9 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if newUser.Password != oldUser.Password {
+	err = hash.CheckPassword(newUser.Password, oldUser.Password)
+
+	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(map[string]string{
