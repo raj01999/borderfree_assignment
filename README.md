@@ -1,7 +1,35 @@
-# https://borderfree-frontend.pages.dev
+1. Clone the repo
 
-# https://borderfree-backend.herokuapp.com
+   ```bash
+   https://github.com/raj01999/borderfree_assignment.git
+   ```
 
-## Name: Sarafraj Mallick
+2. cd borderfree_assignment
+3. cd to server
 
-## Email: sarafraj01999@gmail.com
+   ```bash
+   go run main.go
+   ```
+
+4. cd to client
+
+   ```bash
+   npm i
+   ```
+
+   ```bash
+   npm start
+   ```
+
+5. open the localhose:
+   http://localhost:5000
+
+   http://localhost:3000
+
+## https://borderfree-frontend.pages.dev
+
+## https://borderfree-backend.herokuapp.com
+
+### Name : Sarafraj Mallick
+
+### Email : sarafraj01999@gmail.com
