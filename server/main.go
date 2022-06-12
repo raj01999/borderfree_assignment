@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
 	h "server/handlers"
 
 	"github.com/gorilla/handlers"
@@ -43,7 +42,7 @@ func main() {
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"})
 	origins := handlers.AllowedOrigins([]string{"*"})
 
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(headers, methods, origins)(r)))
+	// log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), handlers.CORS(headers, methods, origins)(r)))
 
-	// log.Fatal(http.ListenAndServe(":"+"5000", handlers.CORS(headers, methods, origins)(r)))
+	log.Fatal(http.ListenAndServe(":"+"5000", handlers.CORS(headers, methods, origins)(r)))
 }

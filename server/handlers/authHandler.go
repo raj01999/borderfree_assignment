@@ -13,7 +13,10 @@ type UserKey struct {
 	User string
 }
 
+// this key use for passing context value from AuthenticateToken middleware to router handlers
 var key UserKey = UserKey{"userId"}
+
+// this is an middleware for verifying the token which came from request headers {Authorization}
 
 func AuthenticateToken(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -55,6 +58,7 @@ func AuthenticateToken(next http.Handler) http.Handler {
 			return
 		}
 
+		// the key use for sending the data after successfully authentication
 		ctx := context.WithValue(r.Context(), key, claim)
 		next.ServeHTTP(w, r.WithContext(ctx))
 

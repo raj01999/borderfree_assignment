@@ -11,7 +11,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// after jwt verification this handler add the product to database with respective user reference
+
 func AddProduct(w http.ResponseWriter, r *http.Request) {
+
+	// the key is use for taking the data from middleware
 	props := r.Context().Value(key)
 
 	var user Claims
@@ -65,7 +69,11 @@ func AddProduct(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// after token and user varification this handlers send the respective users data to them as and array of object {json}
+
 func GetProduct(w http.ResponseWriter, r *http.Request) {
+
+	// the key is use for taking the data from middleware
 	props := r.Context().Value(key)
 
 	var user Claims
@@ -94,7 +102,11 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// this handler take a query url parameter id {?id=}, and after verification delete that respective product
+
 func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+
+	// the key is use for taking the data from middleware
 	props := r.Context().Value(key)
 
 	var user Claims
@@ -162,7 +174,11 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// this handler take a query url parameter id {?id=}, and after verification Update that product respect to req body.
+
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+
+	// the key is use for taking the data from middleware
 	props := r.Context().Value(key)
 
 	var user Claims

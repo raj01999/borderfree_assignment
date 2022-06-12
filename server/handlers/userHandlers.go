@@ -21,6 +21,8 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+// this handleres take and id and password in request body, It create an hash password for user real password and save it to database
+
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var newUser model.UserField
 	err := json.NewDecoder(r.Body).Decode(&newUser)
@@ -95,6 +97,8 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	})
 
 }
+
+// this handler verify the user provide id and password with database id & hashpassword and send response acording to the verification status
 
 func Signin(w http.ResponseWriter, r *http.Request) {
 	var newUser model.UserField
